@@ -36,11 +36,11 @@
   <dependencies>
   
   	<!--  自己的工具类  -->
-  	<!-- <dependency>
-  		<groupId>com.zhuzhiguang.utils</groupId>
-  		<artifactId>zhukzhiguang-utils</artifactId>
-  		<version>0.0.1-SNAPSHOT</version>
-  	</dependency> -->
+  	<dependency>
+  		<groupId>com.lizhichao</groupId>
+  		<artifactId>lizhichao-cms-utils</artifactId>
+	    <version>0.0.1-SNAPSHOT</version>
+  	</dependency>
   	
   	<!-- spring 及springMVC -->
 		<dependency>
@@ -295,7 +295,7 @@
 				<configuration>
 					<httpConnector>
 					    <!--  项目端口号 -->
-						<port>8083</port>
+						<port>8080</port>
 						 <!--项目路径 -->
 						<host>localhost</host>
 					</httpConnector>
