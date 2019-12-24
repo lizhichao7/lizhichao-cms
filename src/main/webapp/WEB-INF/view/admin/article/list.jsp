@@ -22,7 +22,7 @@
             <th>作者</th>
             <th>发布时间</th>
             <th>状态</th>
-            <th>投诉数</th>
+            <!-- <th>投诉数</th> -->
             <th>是否热门</th>
             <th>操作</th>
           </tr>
@@ -46,12 +46,12 @@
         					</c:otherwise>
         				</c:choose>
         			</td>
-        			<td>${article.complainCnt}</td>
+        			<%-- <td>${article.complainCnt}</td> --%>
         			<td>${article.hot==1?"热门":"非热门"}</td>
         			<td width="300px">
         				<input type="button" value="删除"  class="btn btn-danger" onclick="del(${article.id})">
         				<input type="button" value="审核"  class="btn btn-info" onclick="check(${article.id})" >
-        				<input type="button" value="管理投诉"  class="btn btn-info" onclick="complainList(${article.id})" >
+        				<%-- <input type="button" value="管理投诉"  class="btn btn-info" onclick="complainList(${article.id})" > --%>
         			</td>
         		</tr>
         	</c:forEach>
