@@ -5,6 +5,7 @@
 <!-- <div class="container-fluid"> -->
 	
 	状态:<select  name="status" onchange="gb(this.value)" >
+			<option value="-1"  ${status==-1?"selected":"" }>全部</option>
 			<option value="0"  ${status==0?"selected":"" }>待审核</option>
 			<option value="1"  ${status==1?"selected":"" }>通过</option>
 			<option value="2"  ${status==2?"selected":"" }>拒绝</option>
@@ -47,10 +48,10 @@
         			</td>
         			<td>${article.complainCnt}</td>
         			<td>${article.hot==1?"热门":"非热门"}</td>
-        			<td width="200px">
+        			<td width="300px">
         				<input type="button" value="删除"  class="btn btn-danger" onclick="del(${article.id})">
-        				<input type="button" value="审核"  class="btn btn-warning" onclick="check(${article.id})" >
-        				<input type="button" value="管理投诉"  class="btn btn-warning" onclick="complainList(${article.id})" >
+        				<input type="button" value="审核"  class="btn btn-info" onclick="check(${article.id})" >
+        				<input type="button" value="管理投诉"  class="btn btn-info" onclick="complainList(${article.id})" >
         			</td>
         		</tr>
         	</c:forEach>
@@ -135,10 +136,17 @@
 		refreshPage();
 	})
 	
+	$('#complainModal').on('hidden.bs.modal', function (e) {
+		  // do something...
+		 
+		refreshPage();
+	})
+	
 	/**
 	* 查看文章的投诉
 	*/
 	function complainList(id){
+		global_article_id=id
 		$("#complainModal").modal('show')
 		$("#complainListDiv").load("/article/complains?articleId="+id);
 		
@@ -197,6 +205,7 @@
 				alert('操作成功')
 				//隐藏当前的模态框
 				$('#articleContent').modal('hide')
+				$('#complainModal').modal('hide')
 				//刷新当前的页面
 				//refreshPage();
 				return;	

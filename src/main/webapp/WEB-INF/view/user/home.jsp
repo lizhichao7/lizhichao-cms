@@ -103,7 +103,7 @@
 	
 <!-- 尾开始 -->
 <nav class="nav fixed-bottom justify-content-center "  style="background:" height="50px"> 
-	       此树是我栽  
+	       知人者智，自知者明。胜人者有力，自胜者强
 	       <div class="spinner-grow" role="status">
   <span class="sr-only">Loading...</span>
 </div>

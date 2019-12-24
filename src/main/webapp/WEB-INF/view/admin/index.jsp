@@ -37,8 +37,8 @@
     </div>
   </div>
 </nav><!--  头结束 -->
-	
-	<div class="container row">
+	<div class="container-fluid">
+	<div class="row">
 		<div class="col-md-2" style="margin-top:20px ; border-right:solid 2px"> 
 			<!-- 左侧的菜单 -->
 			<ul class="nav flex-column mymenuselected">
@@ -46,7 +46,7 @@
 				    <a class="nav-link"  href="/" >首页</a>
 				  </li>
 				  <li class="nav-item ">
-				    <a  class="nav-link active" href="#" onclick="showWork($(this),'/admin/article?status=0&page=1')" >文章管理</a>
+				    <a  class="nav-link active" href="#" onclick="showWork($(this),'/admin/article?status=-1&page=1')" >文章管理</a>
 				  </li>
 				  <li class="nav-item">
 				    <a class="nav-link" href="#" onclick="showWork($(this),'/admin/comment')" >评论管理</a>
@@ -57,6 +57,7 @@
 				  <li class="nav-item">
 				    <a class="nav-link" href="#" onclick="showWork($(this),'/admin/user')" >用户管理管理</a>
 				  </li>
+				  
 				</ul>	
 		</div>
 		
@@ -65,10 +66,11 @@
 		    
 		</div>	
 	</div>
+	</div>
 	
 <!-- 尾开始 -->
 <nav class="nav fixed-bottom justify-content-center "  style="background:#ffffff" height="50px"> 
-	         CMS  系统后台管理系统  版权所有 违者必奖 
+	         CMS  李志超  管理系统 
 </nav>
 
 <script type="text/javascript">	

@@ -37,8 +37,8 @@
         				</c:choose>
         			</td>
         			<td width="200px">
-        				<input type="button" value="删除"  class="btn btn-danger" onclick="del(${article.id})">
-        				<input type="button" value="修改"  class="btn btn-warning" onclick="update(${article.id})" >
+        				<input type="button" value="删除"  class="btn btn-info" onclick="del(${article.id})">
+        				<input type="button" value="修改"  class="btn btn-info" onclick="update(${article.id})" >
         			</td>
         		</tr>
         	</c:forEach>
