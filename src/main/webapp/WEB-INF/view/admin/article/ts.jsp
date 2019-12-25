@@ -3,16 +3,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!-- <div class="container-fluid"> -->
+	
 	状态:<select  name="status" onchange="gb(this.value)" >
 			<option value="-1"  ${status==-1?"selected":"" }>全部</option>
 			<option value="0"  ${status==0?"selected":"" }>待审核</option>
 			<option value="1"  ${status==1?"selected":"" }>通过</option>
 			<option value="2"  ${status==2?"selected":"" }>拒绝</option>
 		</select>
-	投诉次数：<input type="text" name="complainCnt" value="${complainCnt}" onchange="gb(this.value)">--
-	<input type="text" name="complainCnt" value="${complainCnt}" onchange="gb(this.value)">
-	
-		
 	
 	<table class="table">
 		<!-- articlePage -->
@@ -20,26 +17,24 @@
           <tr>
             <th>id</th>
             <th>标题</th>
-            <th>栏目</th>
-            <th>分类</th>
-            <th>作者</th>
-            <th>发布时间</th>
-            <th>状态</th>
-            <th>投诉数</th>
-            <th>是否热门</th>
+            <th>文章内容</th>
+            <th>投诉类型</th>
+            <th>投诉次数</th>
+            <th>投诉时间</th>
+            <th>投诉详情</th>
             <th>操作</th>
           </tr>
         </thead>
         <tbody>
-        	<c:forEach items="${articlePage.list}" var="article">
+        	<c:forEach items="${list}" var="c">
         		<tr>
-        			<td>${article.id}</td>
-        			<td>${article.title}</td>
+        			<td>${c.id}</td>
+        			<td>${c.articleId}</td>
         			<td>${article.channel.name}</td>
-        			<td>${article.category.name}</td>
+        			<td>${c.complainType}</td>
         			<td>${article.user.username}</td>
-        			<td><fmt:formatDate value="${article.created}" pattern="yyyy年MM月dd日"/></td>
-        			<td>
+        			<td><fmt:formatDate value="${c.created}" pattern="yyyy年MM月dd日"/></td>
+        			<%-- <td>
         				<c:choose>
         					<c:when test="${article.status==0}"> 待审核</c:when>
         					<c:when test="${article.status==1}"> 审核通过</c:when>
@@ -48,13 +43,14 @@
         						未知
         					</c:otherwise>
         				</c:choose>
-        			</td>
+        			</td> --%>
         			<td>${article.complainCnt}</td>
+        			<%-- <td>${article.complain_type}</td> --%>
         			<td>${article.hot==1?"热门":"非热门"}</td>
         			<td width="300px">
         				<input type="button" value="删除"  class="btn btn-danger" onclick="del(${article.id})">
         				<input type="button" value="审核"  class="btn btn-info" onclick="check(${article.id})" >
-        				<input type="button" value="详情"  class="btn btn-info" onclick="complainList(${article.id})" >
+        				<input type="button" value="管理投诉"  class="btn btn-info" onclick="complainList(${article.id})" >
         			</td>
         		</tr>
         	</c:forEach>
@@ -83,7 +79,7 @@
   <div class="modal-dialog" role="document" style="margin-left:100px;">
     <div class="modal-content" style="width:1200px;" >
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">详情</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle">文章审核</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -94,8 +90,8 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-        <!-- <button type="button" class="btn btn-primary" onclick="setStatus(1)">审核通过</button>
-        <button type="button" class="btn btn-primary" onclick="setStatus(2)">审核拒绝</button> -->
+        <button type="button" class="btn btn-primary" onclick="setStatus(1)">审核通过</button>
+        <button type="button" class="btn btn-primary" onclick="setStatus(2)">审核拒绝</button>
        
       </div>
     </div>

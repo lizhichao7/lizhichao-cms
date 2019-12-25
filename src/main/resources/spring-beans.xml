@@ -18,7 +18,7 @@
 
 	<!-- 1、注解扫描器 -->
 	<!-- todo -->
-	<context:component-scan base-package="com.lizhichao" >
+	<context:component-scan base-package="com.lizhichao.cms" >
 		<!-- 排除要要扫描的controller -->
 		<context:exclude-filter type="annotation"
 			expression="org.springframework.stereotype.Controller" />
@@ -84,7 +84,7 @@
 		<!-- 配置切点表达式 -->
 		<!-- todo -->
 		<aop:pointcut 
-			expression="execution(* com.lizhichao.service.*.*(..))" id="pointcut" />
+			expression="execution(* com.lizhichao.cms.service.*.*(..))" id="pointcut" />
 		<!-- 关联事务 -->
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="pointcut" />
 
@@ -95,7 +95,7 @@
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<!-- basePackage :mapper接口所在的包 -->
 		<!-- todo -->
-		<property name="basePackage" value="com.lizhichao.mapper"></property>
+		<property name="basePackage" value="com.lizhichao.cms.mapper"></property>
 
 	</bean>
 

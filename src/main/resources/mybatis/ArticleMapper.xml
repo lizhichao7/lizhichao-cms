@@ -2,17 +2,17 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  <mapper namespace="com.lizhichao.mapper.ArticleMapper">
+  <mapper namespace="com.lizhichao.cms.mapper.ArticleMapper">
   	
   	<resultMap type="article" id="articleMapper">
 		<result property="channelId" column="channel_id"/>
 		<result property="categoryId" column="category_id"/>
-		<association property="channel" column="channel_id" javaType="com.lizhichao.bean.Channel" 
+		<association property="channel" column="channel_id" javaType="com.lizhichao.cms.bean.Channel" 
 		   select="findChannel"></association>
-		<association property="category" column="category_id" javaType="com.lizhichao.bean.Category" 
+		<association property="category" column="category_id" javaType="com.lizhichao.cms.bean.Category" 
 		   select="findCatigory"></association>
-		<association property="user" column="user_id" javaType="com.lizhichao.bean.User" 
-			select="com.lizhichao.mapper.UserMapper.findUserById">	
+		<association property="user" column="user_id" javaType="com.lizhichao.cms.bean.User" 
+			select="com.lizhichao.cms.mapper.UserMapper.findUserById">	
 		</association>
 	</resultMap>
 		
@@ -54,6 +54,15 @@
 		  LIMIT #{value} 
     </select>
     
+    <select id="comList" resultMap="articleMapper">
+		SELECT id,title,channel_id,category_id ,user_id, created,picture,complainCnt
+		  FROM cms_article
+		  WHERE status = 1 AND deleted=0
+		         AND hot = 1 AND complainCnt
+		  ORDER BY complainCnt DESC 
+		  LIMIT 10
+    </select>
+    
 	<select id="list" resultMap="articleMapper">
 		SELECT id,title,channel_id,category_id ,user_id, created,status,hot,picture,complainCnt
 		  FROM cms_article
@@ -87,13 +96,15 @@
 		<result column="compain_option" property="compainOption"/>
 		<result column="user_id" property="userId"/>
 		<association column="user_id" property="user" 
-			javaType="com.lizhichao.bean.User"
-			select="com.lizhichao.mapper.UserMapper.findUserById"
+			javaType="com.lizhichao.cms.bean.User"
+			select="com.lizhichao.cms.mapper.UserMapper.findUserById"
 		/>
 	</resultMap>
 	
 	<select id="getComplains" resultMap="ComplainMapper">
 		SELECT * FROM cms_complain where article_id=#{value}
 	</select>
+	
+	
 	
   </mapper>

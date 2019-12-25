@@ -7,9 +7,9 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 <!-- 别名配置 -->
  <typeAliases>
     <!-- todo -->
-   <package name="com.lizhichao.bean"/>
+   <package name="com.lizhichao.cms.bean"/>
    <!-- todo -->
-   <package name="com.lizhichao.vo"/>
+   <package name="com.lizhichao.cms.vo"/>
  </typeAliases>
  
  

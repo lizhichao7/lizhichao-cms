@@ -182,7 +182,22 @@
 					     	
 					     </ol>
 					  </div>
-				</div>	
+				</div>
+				
+				<div class="card">
+					  <div class="card-header">
+					    投诉数据
+					  </div>
+					  <div class="card-body">
+					     <ol>
+					     	<c:forEach items="${comArticles}" var="article" varStatus="index">
+					     		<li class="ex"> ${index.index+1}. <a href="/article/detail?id=${article.id}" target="_blank" >${article.title}</a></li>
+					     	</c:forEach>
+					     	
+					     </ol>
+					  </div>
+				</div>
+					
 				
 					
 			  <div class="card" style="margin-top:50px">
@@ -196,7 +211,32 @@
 					     	<li>变频和定频空调，谁更省电？实测发现，绝大多数人都用错了空调！</li>
 					     </ul>
 					  </div>
-				</div>			
+				</div>	
+				
+				 <div class="card" style="margin-top:50px">
+					  <div class="card-header">
+					    最新图片
+					  </div>
+					 <div style="margin-top:20px">
+				<c:forEach items="${articlePage.list}" var="article">
+					<div class="row" style="margin-top:5px">
+						<div class="col-md-3">
+							<img  width="100px" height="80px" src="/pic/${article.picture}"
+							  onerror="this.src='/resource/images/guest.jpg'"
+							  class="rounded" style="border-radius:12px!important;"
+							 >
+						</div>
+						<div class="col-md-9">
+							<a href="/article/detail?id=${article.id}" target="_blank">${article.title}</a>
+							<br>
+							作者：${article.user.username}
+							<br>
+							栏目：<a> ${article.channel.name} </a>&nbsp;&nbsp;&nbsp;&nbsp; 分类：<a>${article.category.name}</a>
+						</div>
+					</div>
+				</c:forEach>
+			</div>
+				</div>		
 		</div>
 	</div>
 </div>
