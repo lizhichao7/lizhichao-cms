@@ -15,6 +15,7 @@ import com.lizhichao.cms.bean.Article;
 import com.lizhichao.cms.bean.Complain;
 import com.lizhichao.cms.common.CmsError;
 import com.lizhichao.cms.common.CmsMessage;
+import com.lizhichao.cms.mapper.ArticleRep;
 import com.lizhichao.cms.service.ArticleService;
 
 @RequestMapping("admin")

@@ -2,6 +2,7 @@ package com.lizhichao.cms.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import com.github.pagehelper.PageInfo;
@@ -10,6 +11,7 @@ import com.lizhichao.cms.bean.Category;
 import com.lizhichao.cms.bean.Channel;
 import com.lizhichao.cms.bean.Comment;
 import com.lizhichao.cms.bean.Complain;
+import com.lizhichao.cms.bean.Favorite;
 import com.lizhichao.cms.bean.Slide;
 
 public interface ArticleService {
@@ -141,4 +143,16 @@ public interface ArticleService {
 	
 	List<Complain> qlist(Complain complain);
 	
+	//访问量+1
+	int updHits(String substring);
+
+
+	//访问量+1
+	int updaHits(Article article);
+
+	List<Favorite> listfavorite(Favorite favorite);
+	
+	void addfavorite(Favorite favorite);
+	
+	void delfavorite(@Param("id")int id);
 }

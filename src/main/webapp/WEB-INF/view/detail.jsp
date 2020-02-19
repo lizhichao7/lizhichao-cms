@@ -25,7 +25,8 @@
 			作者：${article.user.username} &nbsp;&nbsp;&nbsp;
 			栏目：${article.channel.name}  &nbsp;&nbsp;&nbsp;
 			分类：${article.category.name}&nbsp;&nbsp;&nbsp;
-			发表时间：<fmt:formatDate value="${article.created}" pattern="yyyy-MM-dd"/> 
+			访问数量：${article.hits }&nbsp;&nbsp;&nbsp;
+			发表时间：<fmt:formatDate value="${article.created}" pattern="yyyy-MM-dd"/>	 
 			</h5>
 			<a href="/article/complain?articleId=${article.id}">投诉</a>
 			

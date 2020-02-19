@@ -2,6 +2,7 @@ package com.lizhichao.cms.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.ResultType;
@@ -14,6 +15,7 @@ import com.lizhichao.cms.bean.Category;
 import com.lizhichao.cms.bean.Channel;
 import com.lizhichao.cms.bean.Comment;
 import com.lizhichao.cms.bean.Complain;
+import com.lizhichao.cms.bean.Favorite;
 
 public interface ArticleMapper {
 	/**
@@ -162,5 +164,38 @@ public interface ArticleMapper {
 	
 	@Select("select * from cms_complain ORDER BY created desc")
 	List<Complain> qlist(Complain complain);
+	
+	@Select("select * from cms_article where status=#{i}")
+	List<Article>  findAllArticlesWithStatus(int i);
+	
+	@Update("UPDATE cms_article SET hits=hits+1 WHERE id=#{id}")
+	int updHits(String substring);
+
+	@Update("UPDATE cms_article SET hits=hits+1 WHERE id=#{id}")
+	int updaHits(Article article);
+	
+	/**
+	 *  查询收藏夹
+	 * @param favorite
+	 * @return
+	 */
+	@Select("select * from cms_favorite ORDER BY created desc")
+	List<Favorite> listfavorite(Favorite favorite);
+	
+	/**
+	 *  添加收藏夹
+	 * @param favorite
+	 * @return
+	 */
+	@Insert("insert into cms_favorite values(null,#{text},#{url},0,now())")
+	void addfavorite(Favorite favorite);
+	
+	/**
+	 *  删除收藏夹
+	 * @param favorite
+	 * @return
+	 */
+	@Delete("delete from cms_favorite where id=#{id}")
+	void delfavorite(@Param("id")int id);
 	
 }

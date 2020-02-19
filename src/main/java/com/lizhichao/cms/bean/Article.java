@@ -1,10 +1,23 @@
 package com.lizhichao.cms.bean;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Article {
+import org.springframework.data.annotation.Id;
+import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.data.elasticsearch.annotations.Field;
+import org.springframework.data.elasticsearch.annotations.FieldType;
+//指定索引库的名字和类型（表），注意，库名表名不能用大写，否则报错
+@Document(indexName="cms_articles",type="article")
+public class Article implements Serializable{
+	@Id
 	private Integer id              ;
+	
+	// 1数据的分词方式是ik  2是否建立索引  3是否存储  4搜索关键词的分词方式是ik  5字段类型是text
+	@Field(analyzer="ik_smart",index=true,store=true,searchAnalyzer="ik_smart",type=FieldType.text)
 	private String title           ;//标题
+		
+	@Field(analyzer="ik_smart",index=true,store=true,searchAnalyzer="ik_smart",type=FieldType.text)
 	private String content         ;//文章的内容
 	private String picture         ;//图片的url
 	private int channelId      ;//栏目 频道

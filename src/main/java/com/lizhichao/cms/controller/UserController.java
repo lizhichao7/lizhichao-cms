@@ -1,6 +1,8 @@
 package com.lizhichao.cms.controller;
 
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
+
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -24,13 +26,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.lizhichao.FileUtils;
 import com.lizhichao.HtmlUtils;
+import com.lizhichao.StringUtil;
 import com.lizhichao.StringUtils;
 import com.lizhichao.cms.bean.Article;
 import com.lizhichao.cms.bean.Category;
 import com.lizhichao.cms.bean.Channel;
+import com.lizhichao.cms.bean.Favorite;
 import com.lizhichao.cms.bean.User;
 import com.lizhichao.cms.common.CmsContant;
 import com.lizhichao.cms.service.ArticleService;
@@ -342,6 +347,55 @@ public class UserController extends BaseController {
 			
 			
 			return updateREsult>0;
+			
+		}
+		
+		//查询收藏夹
+		@RequestMapping("listfavorite")
+		public String listfavorite(Favorite favorite,HttpServletRequest request,@RequestParam(defaultValue="1")int pageNum) {
+			PageHelper.startPage(pageNum, 10);
+			List<Favorite> list = articleService.listfavorite(favorite);
+			PageInfo<Favorite> page = new PageInfo<>(list);
+			request.setAttribute("list", list);
+			request.setAttribute("f", favorite);
+			request.setAttribute("page", page);
+			
+			return "user/article/flist";
+			
+		}
+		
+		//去添加页面
+		@RequestMapping("toaddfavorite")
+		public String toaddfavorite() {
+			
+			return "user/article/addfavorite";
+			
+		}
+		
+		//添加收藏夹
+		@RequestMapping(value="addfavorite",method=RequestMethod.POST)
+		public String addfavorite(@ModelAttribute("favorite") @Valid Favorite favorite,MultipartFile file,BindingResult result,HttpServletRequest request) throws IllegalStateException, IOException {
+			
+			/*if(!StringUtil.isHttpUrl(favorite.getUrl())) {
+				result.rejectValue("Url", "", "不是合法的url地址");
+			}*/
+			/*if(result.hasErrors()) {
+				return "user/article/addfavorite";
+			}*/
+			
+			articleService.addfavorite(favorite);
+			
+			return "user/home";
+			
+		}
+		
+		//删除收藏夹
+		@RequestMapping("delfavorite")
+		public String delfavorite(HttpServletRequest request) {
+			int id = Integer.parseInt(request.getParameter("id"));
+			articleService.delfavorite(id);
+			
+			return "user/home";
 			
 		}
 }

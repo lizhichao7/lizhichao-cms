@@ -2,9 +2,11 @@ package com.lizhichao.cms.bean;
 
 import java.util.Date;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
+
 import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
 
 public class Complain {
 	private Integer id               ;

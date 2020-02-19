@@ -2,6 +2,7 @@ package com.lizhichao.cms;
 
 import org.junit.Assert;
 
+import com.lizhichao.FileUtils;
 import com.lizhichao.StringUtils;
 
 public class Test {
@@ -17,4 +18,5 @@ public class Test {
 		String url ="htt:/www.baidu.com";
 		Assert.assertTrue("true",StringUtils.isUrl(url));
 	}
+	
 }

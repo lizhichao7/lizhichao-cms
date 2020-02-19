@@ -3,8 +3,11 @@ package com.lizhichao.cms.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
+import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.lizhichao.cms.bean.Article;
@@ -12,9 +15,11 @@ import com.lizhichao.cms.bean.Category;
 import com.lizhichao.cms.bean.Channel;
 import com.lizhichao.cms.bean.Comment;
 import com.lizhichao.cms.bean.Complain;
+import com.lizhichao.cms.bean.Favorite;
 import com.lizhichao.cms.bean.Slide;
 import com.lizhichao.cms.common.CmsContant;
 import com.lizhichao.cms.mapper.ArticleMapper;
+import com.lizhichao.cms.mapper.ArticleRep;
 import com.lizhichao.cms.mapper.SlideMapper;
 @Service
 public class ArticleServiceImpl implements ArticleService{
@@ -25,6 +30,11 @@ public class ArticleServiceImpl implements ArticleService{
 	@Autowired
 	SlideMapper slideMapper;
 	
+	@Autowired
+	ArticleRep articleRep;
+	
+	@Autowired
+	KafkaTemplate<String, String> kafkaTemplate;
 	
 	@Override
 	public PageInfo<Article> listByUser(Integer id, int page) {
@@ -102,6 +112,13 @@ public class ArticleServiceImpl implements ArticleService{
 	@Override
 	public int setCheckStatus(int id, int status) {
 		// TODO Auto-generated method stub
+		if(status==1) {
+			Article article = articleMapper.findById(id);
+			String jsonString = JSON.toJSONString(article);
+			jsonString="add="+jsonString;
+			kafkaTemplate.send("articles",jsonString);
+			System.err.println("发送消息*****************");
+		}
 		 return articleMapper.CheckStatus(id,status);
 	}
 	
@@ -188,6 +205,38 @@ public class ArticleServiceImpl implements ArticleService{
 	public List<Article> comList() {
 		// TODO Auto-generated method stub
 		return articleMapper.comList(CmsContant.PAGE_SIZE);
+	}
+
+	//访问量  增加 1
+	@Override
+	public int updHits(String substring) {
+		// TODO Auto-generated method stub
+		return articleMapper.updHits(substring);
+	}
+
+	//访问量  增加 1
+	@Override
+	public int updaHits(Article article) {
+		// TODO Auto-generated method stub
+		return articleMapper.updaHits(article);
+	}
+
+	@Override
+	public List<Favorite> listfavorite(Favorite favorite) {
+		// TODO Auto-generated method stub
+		return articleMapper.listfavorite(favorite);
+	}
+
+	@Override
+	public void addfavorite(Favorite favorite) {
+		// TODO Auto-generated method stub
+		articleMapper.addfavorite(favorite);
+	}
+
+	@Override
+	public void delfavorite(int id) {
+		// TODO Auto-generated method stub
+		articleMapper.delfavorite(id);
 	}
 
 }
